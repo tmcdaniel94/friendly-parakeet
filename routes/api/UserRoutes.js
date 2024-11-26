@@ -14,6 +14,11 @@ const {
   
   // /api/Users/:UserId
   router.route('/:UserId').get(getSingleUser).delete(deleteUser);
+
+  // Add and delete friends from user's friend list
+  router.route('/api/users/:userId/friends/:friendId').post(addFriend);
+  router.route('/api/users/:userId/friends/:friendId').delete(deleteFriend);
+
   
   // /api/Users/:UserId/assignments
 //   router.route('/:UserId/assignments').post(addReaction);
