@@ -1,7 +1,6 @@
 const express = require('express');
 const db = require('./config/connection');
 const routes = require('./routes');
-const dayjs = require('dayjs')
 
 const cwd = process.cwd();
 

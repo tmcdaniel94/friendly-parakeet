@@ -1,54 +1,51 @@
 const { Schema, model } = require('mongoose');
 
-// Create a virtual called friendCount that retrieves the length of the user's friends array field on query.
-
 const userSchema = new Schema(
   {
     username: {
       type: DataTypes.STRING,
       required: true,
-      // unique
-      // trimmed
+      unique: true,
+      trim: true,
     },
     email: {
       type: DataTypes.STRING,
       required: true,
       unique: true,
+      match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, 'Please enter a valid e-mail address'],
     //   mongoose's matching validation
     //   validate: {
     //     isEmail: true,
     //   },
     },
-    thoughts: {
-        type: DataTypes.STRING,
-        references: {
-            model: 'thought',
-        }
-        // array of _id values referencing the thought model
-    },
-    friends: {
-        type: DataTypes.STRING,        
-        // array of _id values referencing the user model
-    },
+    thoughts: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "Thought",
+        },
+      ],
+      friends: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "User",
+        },
+      ],
   },
   {
-    hooks: {
-      beforeCreate: async (newUserData) => {
-        newUserData.password = await bcrypt.hash(newUserData.password, 10);
-        return newUserData;
-      },
-      beforeUpdate: async (updatedUserData) => {
-        updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
-        return updatedUserData;
-      },
+    // Mongoose supports two Schema options to transform Objects after querying MongoDb: toJSON and toObject.
+    // Here we are indicating that we want virtuals to be included with our response, overriding the default behavior
+    toJSON: {
+      virtuals: true,
     },
-    sequelize,
-    timestamps: false,
-    freezeTableName: true,
-    underscored: true,
-    modelName: 'user',
+    id: false,
   }
 );
+
+// Create a virtual called friendCount that retrieves the length
+// of the user's friends array field on query.
+userSchema.virtual('friendCount').get(function() {
+    return this.friends.length;
+});
 
 const User = model('user', userSchema);
 module.exports = User;
