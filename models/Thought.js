@@ -5,20 +5,20 @@ const dayjs = require('dayjs')
 const reactionSchema = new Schema(
     {
       reactionId: {
-        type: DataTypes.ObjectId,
-        default: ObjectId,
+        type: Schema.Types.ObjectId,
+        default: () => new Types.ObjectId(),
       },
       reactionBody: {
-        type: DataTypes.STRING,
+        type: String,
         required: true,
         maxLength: 280,
       },
       username: {
-        type: DataTypes.STRING,
+        type: String,
         required: true,
       },
       createdAt: {
-        type: DataTypes.DATE,
+        type: Date,
         default: Date.now,
         get: (val) => dayjs(val).format('YYYY-MM-DD'),
       },
