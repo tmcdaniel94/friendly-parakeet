@@ -22,12 +22,16 @@ const reactionSchema = new Schema(
       },
     createdAt: {
       type: DataTypes.DATE,
-      // set default value to current timestamp
       default: Date.now,
-      // use a getter method to format the timestamp on query
       get: (val) => dayjs(val).format('YYYY-MM-DD'),
     },
   },
+  {
+    toJSON: {
+      getters: true,
+    },
+    id: false,
+  }
 );
 
 const Reaction = model('reaction', reactionSchema);
