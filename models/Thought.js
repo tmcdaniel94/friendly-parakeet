@@ -36,20 +36,20 @@ const Reaction = model('reaction', reactionSchema);
 const thoughtSchema = new Schema(
     {
         thoughtText: {
-            type: DataTypes.STRING,
+            type: String,
             required: true,
             minLength: 1,
             maxLength: 280,
         },
         createdAt: {
-            type: DataTypes.DATE,
+            type: Date,
             // set default value to current timestamp
             default: Date.now,
             // use a getter method to format the timestamp on query
             get: (val) => dayjs(val).format('YYYY-MM-DD'),
         },
         username: {
-            type: DataTypes.STRING,
+            type: String,
             required: true,
         },
         // array of nested documents created with the reactionSchema
