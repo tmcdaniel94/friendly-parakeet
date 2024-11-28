@@ -31,8 +31,6 @@ const reactionSchema = new Schema(
     }
 );
 
-const Reaction = model('reaction', reactionSchema);
-
 const thoughtSchema = new Schema(
     {
         thoughtText: {
@@ -53,12 +51,7 @@ const thoughtSchema = new Schema(
             required: true,
         },
         // array of nested documents created with the reactionSchema
-        reactions: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'Reaction',
-            },
-        ]
+        reactions: [reactionSchema],
     },
     {
         toJSON: {

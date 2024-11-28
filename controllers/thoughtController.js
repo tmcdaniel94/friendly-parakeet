@@ -1,4 +1,3 @@
-const { ObjectId } = require('mongoose').Types;
 const { User, Thought, Reaction } = require('../models');
 
 module.exports = {
@@ -69,5 +68,36 @@ module.exports = {
         res.status(500).json(err);
       }
     },
+    // Add reaction
+    async addReaction(req, res) {
+      try {
+        Thought.findOneAndUpdate(
+          { _id: params.thoughtId },
+          { $addToSet: { reactions: body } },
+          { new: true, runValidators: true }
+        )
+        .then((dbThoughtData) => {
+          if (!dbThoughtData) {
+            res.status(404).json({ message: "No thought found" });
+            return;
+          }
+          res.json(dbThoughtData);
+        })
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    },
+    // Remove reaction
+    async removeReaction({params},res) {
+        Thought.findOneAndUpdate(
+          { _id: params.thoughtId },
+          { $pull: { reactions: { reactionId: params.reactionId } } },
+          { new: true }
+        )
+        .then((dbThoughtData) => res.json(dbThoughtData))
+        .catch ((err) => res.json(err));
+    },
   };
+
+
   
