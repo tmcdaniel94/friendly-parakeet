@@ -38,7 +38,7 @@ module.exports = {
     // Delete a thought
     async deleteThought(req, res) {
       try {
-        const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
+        const thought = await Thought.findOneAndDelete({ _id: req.params.id });
   
         if (!thought) {
           res.status(404).json({ message: 'No thought with that ID' });
@@ -72,7 +72,7 @@ module.exports = {
     async addReaction(req, res) {
       try {
         Thought.findOneAndUpdate(
-          { _id: params.thoughtId },
+          { _id: req.params.id },
           { $addToSet: { reactions: body } },
           { new: true, runValidators: true }
         )
@@ -88,10 +88,10 @@ module.exports = {
       }
     },
     // Remove reaction
-    async removeReaction({params},res) {
+    async removeReaction(req,res) {
         Thought.findOneAndUpdate(
-          { _id: params.thoughtId },
-          { $pull: { reactions: { reactionId: params.reactionId } } },
+          { _id: req.params.id },
+          { $pull: { reactions: { reactionId: req.params.id } } },
           { new: true }
         )
         .then((dbThoughtData) => res.json(dbThoughtData))
