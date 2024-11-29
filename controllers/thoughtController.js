@@ -76,7 +76,7 @@ module.exports = {
         )
         .then((dbThoughtData) => {
           if (!dbThoughtData) {
-            res.status(404).json({ message: "No thought found" });
+            res.status(404).json({ message: 'No thought found' });
             return;
           }
           res.json(dbThoughtData);

@@ -1,4 +1,4 @@
-const { User, Thought } = require('../models');
+const { User } = require('../models');
 
 module.exports = {
     // Get all users
@@ -73,7 +73,7 @@ module.exports = {
       try {
         User.findOneAndUpdate(
           { _id: req.params.id },
-          { $addToSet: { friends: req.params.id } },
+          { $addToSet: { friends: req.params.friendId } },
           { runValidators: true, new: true }
         )
         .then((userFriends) => {
@@ -91,7 +91,7 @@ module.exports = {
       try {
         User.findOneAndUpdate(
           { _id: req.params.id },
-          { $pull: { friends: req.params.id } },
+          { $pull: { friends: req.params.friendId } },
           { runValidators: true, new: true }
         )
         .then((userFriends) => {
