@@ -1,4 +1,4 @@
-const { User, Thought, Reaction } = require('../models');
+const { User, Thought } = require('../models');
 
 module.exports = {
     // Get all thoughts
@@ -13,9 +13,7 @@ module.exports = {
     // Get a thought
     async getSingleThought(req, res) {
       try {
-        const thought = await Thought.findOne({ _id: req.params.id })
-          .populate('students');
-  
+        const thought = await Thought.findOne({ _id: req.params.id });
         if (!thought) {
           return res.status(404).json({ message: 'No thought with that ID' });
         }
@@ -73,7 +71,7 @@ module.exports = {
       try {
         Thought.findOneAndUpdate(
           { _id: req.params.id },
-          { $addToSet: { reactions: body } },
+          { $addToSet: { reactions: req.body } },
           { new: true, runValidators: true }
         )
         .then((dbThoughtData) => {

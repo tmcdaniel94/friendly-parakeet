@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, Types, model } = require('mongoose');
 const dayjs = require('dayjs')
 
 // Create a virtual called reactionCount that retrieves the length of the thought's reactions array field on query.
