@@ -89,7 +89,7 @@ module.exports = {
     async removeReaction(req,res) {
         Thought.findOneAndUpdate(
           { _id: req.params.id },
-          { $pull: { reactions: { reactionId: req.params.id } } },
+          { $pull: { reactions: { reactionId: req.params.reactionId } } },
           { new: true }
         )
         .then((dbThoughtData) => res.json(dbThoughtData))
