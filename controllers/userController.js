@@ -63,7 +63,7 @@ module.exports = {
           return res.status(404).json({ message: 'No such user exists' });
         }
   
-        res.json({ message: 'user successfully deleted' });
+        res.json({ message: 'User successfully deleted' });
       } catch (err) {
         console.log(err);
         res.status(500).json(err);
@@ -98,6 +98,8 @@ module.exports = {
           if (!userFriends) {
             return res.status(404).json({ message: 'No user with this id!' });
           }
+          res.json({ message: 'User successfully deleted' });
+
         })
       } catch(err) {
         res.json(err);

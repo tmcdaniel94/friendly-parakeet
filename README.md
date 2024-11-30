@@ -7,7 +7,7 @@ This Social Network API project uses the NoSQL database platform MongoDB, as wel
 [Description](#description)\
 [Installation](#installation)\
 [License](#license)\
-[Links](#links)\
+[Links](#links)
 
 ## Installation
 You will need both MongoDB Compass and Insomnia installed to view and edit this project.  
@@ -18,6 +18,6 @@ Clone the repo into your local repository and open the terminal. Use "npm instal
 MIT
 
 ## Links
-To view this project's demo video, navigate to: 
+To view this project's demo video, navigate to: [Link to Demo](https://drive.google.com/file/d/1WjHWStb019343msfysONddloWcIkEiZH/view?usp=sharing)  
 To view this project's respository, navigate to: https://github.com/tmcdaniel94/friendly-parakeet  
 To view my GitHub, navigate to: https://github.com/tmcdaniel94
